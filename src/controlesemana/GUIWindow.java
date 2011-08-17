@@ -10,6 +10,8 @@
  */
 package controlesemana;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author luiz
@@ -88,6 +90,11 @@ public class GUIWindow extends javax.swing.JFrame {
                 textFieldCodigoActionPerformed(evt);
             }
         });
+        textFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldCodigoKeyPressed(evt);
+            }
+        });
 
         buttonEntradaSaida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controlesemana/resources/entrada.png"))); // NOI18N
         buttonEntradaSaida.setFocusable(false);
@@ -158,7 +165,7 @@ private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//G
     System.out.println(textFieldCodigo.getText());
     textFieldCodigo.setText("");
 }//GEN-LAST:event_textFieldCodigoActionPerformed
-
+    
 private void buttonEntradaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntradaSaidaActionPerformed
     if (stateEntrada) {
         buttonEntradaSaida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controlesemana/resources/saida.png")));
@@ -170,6 +177,12 @@ private void buttonEntradaSaidaActionPerformed(java.awt.event.ActionEvent evt) {
         stateEntrada = true;
     }
 }//GEN-LAST:event_buttonEntradaSaidaActionPerformed
+    
+private void textFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldCodigoKeyPressed
+    if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        buttonEntradaSaidaActionPerformed(null);
+    }
+}//GEN-LAST:event_textFieldCodigoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -200,7 +213,7 @@ private void buttonEntradaSaidaActionPerformed(java.awt.event.ActionEvent evt) {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             public void run() {
                 new GUIWindow().setVisible(true);
             }
