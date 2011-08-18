@@ -128,8 +128,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" pref="264" max="32767" attributes="0"/>
-                          <Component id="textFieldCodigo" alignment="0" pref="264" max="32767" attributes="0"/>
+                          <Component id="jLabel1" pref="847" max="32767" attributes="0"/>
+                          <Component id="textFieldCodigo" alignment="0" pref="847" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -145,8 +145,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" pref="210" max="32767" attributes="1"/>
-                          <Component id="buttonEntradaSaida" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jLabel1" pref="247" max="32767" attributes="1"/>
+                          <Component id="buttonEntradaSaida" alignment="0" pref="247" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
