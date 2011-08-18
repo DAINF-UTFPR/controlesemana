@@ -8,14 +8,21 @@
  */
 package controlesemana;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.supercsv.cellprocessor.ParseBool;
+import org.supercsv.cellprocessor.ParseLong;
+import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanReader;
@@ -27,24 +34,37 @@ public class Controle {
     private static final String ARQUIVO_DEFAULT = "controle.csv";
     private Collection<EntradaSaida> lista;
     private String arquivo;
+    private static final String header[] = new String[]{"codigo", "data", "entrada"};
 
     public Controle(String arquivo) {
+        this.arquivo = arquivo;
         lista = new ArrayList<EntradaSaida>();
     }
 
+    public Controle() {
+        this(ARQUIVO_DEFAULT);
+    }
+
     public void load() {
+        FileReader fr;
         try {
-            ICsvBeanReader inFile = new CsvBeanReader(new FileReader(arquivo), CsvPreference.EXCEL_PREFERENCE);
-            String header[] = inFile.getCSVHeader(true);
+            fr = new FileReader(arquivo);
+
+            BufferedReader br = new BufferedReader(fr);
 
             lista.clear();
 
-            EntradaSaida entradaSaida;
-
-            while ((entradaSaida = inFile.read(EntradaSaida.class, header)) != null) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String cols[] = line.split(",");
+                String codigo = cols[0];
+                long data = Long.parseLong(cols[1]);
+                boolean entrada = Boolean.parseBoolean(cols[2]);
+                EntradaSaida entradaSaida = new EntradaSaida(codigo, data, entrada);
                 lista.add(entradaSaida);
             }
-
+            
+            fr.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Arquivo " + arquivo + " não encontrado.");
         } catch (IOException ex) {
@@ -53,15 +73,15 @@ public class Controle {
     }
 
     public void save() {
+        ICsvBeanWriter outFile;
         try {
-            ICsvBeanWriter outFile = new CsvBeanWriter(new FileWriter(arquivo), CsvPreference.EXCEL_PREFERENCE);
-            String header[] = new String[]{"codigo", "data", "entrada"};
-
-            outFile.writeHeader(header);
+            outFile = new CsvBeanWriter(new FileWriter(arquivo), CsvPreference.STANDARD_PREFERENCE);
 
             for (EntradaSaida entradaSaida : lista) {
                 outFile.write(entradaSaida, header);
             }
+
+            outFile.close();
         } catch (IOException ex) {
             Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
         }
