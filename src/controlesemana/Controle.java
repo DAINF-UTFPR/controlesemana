@@ -91,6 +91,12 @@ public class Controle {
     }
 
     public void addEntradaSaida(EntradaSaida entradaSaida) {
+        if (entradaSaida.isEntrada()) {
+            dentro.add(new Integer(entradaSaida.getCodigo()));
+        } else {
+            dentro.remove(new Integer(entradaSaida.getCodigo()));
+        }
+
         lista.add(entradaSaida);
     }
 
