@@ -9,6 +9,9 @@
 package controlesemana;
 
 import java.awt.event.KeyEvent;
+import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class GUIWindow extends javax.swing.JFrame {
 
@@ -31,7 +34,6 @@ public class GUIWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         panelHeader = new javax.swing.JPanel();
         labelLogo = new javax.swing.JLabel();
@@ -42,6 +44,9 @@ public class GUIWindow extends javax.swing.JFrame {
         textFieldCodigo = new javax.swing.JTextField(128);
         buttonEntradaSaida = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        panelInformacoes = new javax.swing.JPanel();
+        scrollPaneDentro = new javax.swing.JScrollPane();
+        tableDentro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.black);
@@ -51,7 +56,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
         labelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controlesemana/resources/logo.png"))); // NOI18N
 
-        labelControleEntrada.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        labelControleEntrada.setFont(new java.awt.Font("Arial", 1, 24));
         labelControleEntrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelControleEntrada.setText("Controle de Entrada");
 
@@ -101,7 +106,7 @@ public class GUIWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 48));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ENTRADA");
 
@@ -116,8 +121,8 @@ public class GUIWindow extends javax.swing.JFrame {
                     .addComponent(buttonEntradaSaida))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                    .addComponent(textFieldCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
+                    .addComponent(textFieldCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelControleLayout.setVerticalGroup(
@@ -129,12 +134,64 @@ public class GUIWindow extends javax.swing.JFrame {
                     .addComponent(labelCodigo))
                 .addGap(18, 18, 18)
                 .addGroup(panelControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addComponent(buttonEntradaSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                    .addComponent(buttonEntradaSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         tabbedPane.addTab("Controle", panelControle);
+
+        panelInformacoes.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                panelInformacoesComponentShown(evt);
+            }
+        });
+
+        scrollPaneDentro.setFocusable(false);
+
+        tableDentro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Cód. Matrícula", "Entrou em"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPaneDentro.setViewportView(tableDentro);
+
+        javax.swing.GroupLayout panelInformacoesLayout = new javax.swing.GroupLayout(panelInformacoes);
+        panelInformacoes.setLayout(panelInformacoesLayout);
+        panelInformacoesLayout.setHorizontalGroup(
+            panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformacoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneDentro, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelInformacoesLayout.setVerticalGroup(
+            panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformacoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneDentro, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tabbedPane.addTab("Informações", panelInformacoes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,6 +250,19 @@ private void textFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
     }
 }//GEN-LAST:event_textFieldCodigoKeyPressed
 
+private void panelInformacoesComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInformacoesComponentShown
+    Set<Integer> dentro = controle.getCodigosDentroDaSala();
+    DefaultTableModel model = (DefaultTableModel) tableDentro.getModel();
+
+    model.setRowCount(0);
+
+    int i = 1;
+    for (Integer codigo : dentro) {
+        model.addRow(new Object[]{i, codigo.toString(), "2011"});
+        i++;
+    }
+}//GEN-LAST:event_panelInformacoesComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -236,7 +306,10 @@ private void textFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
     private javax.swing.JLabel labelLogo;
     private javax.swing.JPanel panelControle;
     private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelInformacoes;
+    private javax.swing.JScrollPane scrollPaneDentro;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTable tableDentro;
     private javax.swing.JTextField textFieldCodigo;
     // End of variables declaration//GEN-END:variables
 }
