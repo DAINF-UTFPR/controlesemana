@@ -160,9 +160,11 @@ public class GUIWindow extends javax.swing.JFrame {
 
 private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCodigoActionPerformed
     EntradaSaida entradaSaida = new EntradaSaida(textFieldCodigo.getText(), System.currentTimeMillis(), stateEntrada);
-    System.out.println(textFieldCodigo.getText() + " está " + (stateEntrada ? "entrando" : "saindo"));
-    controle.addEntradaSaida(entradaSaida);
-    controle.save();
+    if (textFieldCodigo.getText().matches("^[0-9]+$")) {
+        System.out.println(textFieldCodigo.getText() + " está " + (stateEntrada ? "entrando" : "saindo"));
+        controle.addEntradaSaida(entradaSaida);
+        controle.save();
+    }
     textFieldCodigo.setText("");
 }//GEN-LAST:event_textFieldCodigoActionPerformed
 
