@@ -13,11 +13,14 @@ import java.awt.event.KeyEvent;
 public class GUIWindow extends javax.swing.JFrame {
     
     protected boolean stateEntrada;
+    protected Controle controle;
 
     /** Creates new form GUIWindow */
     public GUIWindow() {
         initComponents();
         stateEntrada = true;
+        controle = new Controle();
+        controle.load();
     }
 
     /** This method is called from within the constructor to
@@ -156,7 +159,10 @@ public class GUIWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCodigoActionPerformed
-    System.out.println(textFieldCodigo.getText());
+    EntradaSaida entradaSaida = new EntradaSaida(textFieldCodigo.getText(), System.currentTimeMillis(), stateEntrada);
+    System.out.println(textFieldCodigo.getText() + " está " + (stateEntrada ? "entrando" : "saindo"));
+    controle.addEntradaSaida(entradaSaida);
+    controle.save();
     textFieldCodigo.setText("");
 }//GEN-LAST:event_textFieldCodigoActionPerformed
     
