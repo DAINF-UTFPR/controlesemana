@@ -15,6 +15,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.supercsv.io.CsvBeanWriter;
@@ -25,12 +27,14 @@ public class Controle {
 
     private static final String ARQUIVO_DEFAULT = "controle.csv";
     private Collection<EntradaSaida> lista;
+    private Set<Integer> dentro;
     private String arquivo;
     private static final String header[] = new String[]{"codigo", "data", "entrada"};
 
     public Controle(String arquivo) {
         this.arquivo = arquivo;
         lista = new ArrayList<EntradaSaida>();
+        dentro = new HashSet<Integer>();
     }
 
     public Controle() {
@@ -53,7 +57,14 @@ public class Controle {
                 long data = Long.parseLong(cols[1]);
                 boolean entrada = Boolean.parseBoolean(cols[2]);
                 EntradaSaida entradaSaida = new EntradaSaida(codigo, data, entrada);
+
                 lista.add(entradaSaida);
+
+                if (entrada) {
+                    dentro.add(new Integer(codigo));
+                } else {
+                    dentro.remove(new Integer(codigo));
+                }
             }
 
             fr.close();
@@ -81,5 +92,9 @@ public class Controle {
 
     public void addEntradaSaida(EntradaSaida entradaSaida) {
         lista.add(entradaSaida);
+    }
+
+    public Set<Integer> getCodigosDentroDaSala() {
+        return dentro;
     }
 }
