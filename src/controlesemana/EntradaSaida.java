@@ -39,7 +39,7 @@ public class EntradaSaida {
     public boolean isEntrada() {
         return entrada;
     }
-    
+
     public boolean getEntrada() {
         // misteriosamente, o supercsv precisa desse método
         return isEntrada();

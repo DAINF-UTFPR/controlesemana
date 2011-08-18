@@ -11,7 +11,7 @@ package controlesemana;
 import java.awt.event.KeyEvent;
 
 public class GUIWindow extends javax.swing.JFrame {
-    
+
     protected boolean stateEntrada;
     protected Controle controle;
 
@@ -165,7 +165,7 @@ private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//G
     controle.save();
     textFieldCodigo.setText("");
 }//GEN-LAST:event_textFieldCodigoActionPerformed
-    
+
 private void buttonEntradaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntradaSaidaActionPerformed
     if (stateEntrada) {
         buttonEntradaSaida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controlesemana/resources/saida.png")));
@@ -177,7 +177,7 @@ private void buttonEntradaSaidaActionPerformed(java.awt.event.ActionEvent evt) {
         stateEntrada = true;
     }
 }//GEN-LAST:event_buttonEntradaSaidaActionPerformed
-    
+
 private void textFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldCodigoKeyPressed
     if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
         buttonEntradaSaidaActionPerformed(null);
@@ -213,7 +213,7 @@ private void textFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             public void run() {
                 new GUIWindow().setVisible(true);
             }
