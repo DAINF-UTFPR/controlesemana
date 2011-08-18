@@ -15,7 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +30,7 @@ public class Controle {
     private static final String ARQUIVO_DEFAULT = "controle.csv";
     private Collection<EntradaSaida> lista;
     private Set<Integer> dentro;
+    private Map<Integer, Long> datasEntrada;
     private String arquivo;
     private static final String header[] = new String[]{"codigo", "data", "entrada"};
 
@@ -35,6 +38,7 @@ public class Controle {
         this.arquivo = arquivo;
         lista = new ArrayList<EntradaSaida>();
         dentro = new HashSet<Integer>();
+        datasEntrada = new HashMap<Integer, Long>();
     }
 
     public Controle() {
@@ -62,8 +66,10 @@ public class Controle {
 
                 if (entrada) {
                     dentro.add(new Integer(codigo));
+                    datasEntrada.put(new Integer(codigo), data);
                 } else {
                     dentro.remove(new Integer(codigo));
+                    datasEntrada.remove(new Integer(codigo));
                 }
             }
 
@@ -93,8 +99,10 @@ public class Controle {
     public void addEntradaSaida(EntradaSaida entradaSaida) {
         if (entradaSaida.isEntrada()) {
             dentro.add(new Integer(entradaSaida.getCodigo()));
+            datasEntrada.put(new Integer(entradaSaida.getCodigo()), entradaSaida.getData());
         } else {
             dentro.remove(new Integer(entradaSaida.getCodigo()));
+            datasEntrada.remove(new Integer(entradaSaida.getCodigo()));
         }
 
         lista.add(entradaSaida);
@@ -102,5 +110,9 @@ public class Controle {
 
     public Set<Integer> getCodigosDentroDaSala() {
         return dentro;
+    }
+
+    public Map<Integer, Long> getDatasDeEntrada() {
+        return datasEntrada;
     }
 }

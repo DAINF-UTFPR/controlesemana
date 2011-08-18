@@ -9,6 +9,7 @@
 package controlesemana;
 
 import java.awt.event.KeyEvent;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -252,13 +253,15 @@ private void textFieldCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
 
 private void panelInformacoesComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelInformacoesComponentShown
     Set<Integer> dentro = controle.getCodigosDentroDaSala();
+    Map<Integer, Long> datasEntrada = controle.getDatasDeEntrada();
     DefaultTableModel model = (DefaultTableModel) tableDentro.getModel();
 
     model.setRowCount(0);
 
     int i = 1;
     for (Integer codigo : dentro) {
-        model.addRow(new Object[]{i, codigo.toString(), "2011"});
+        String data = new java.text.SimpleDateFormat("HH:mm:ss (dd/MM/yyyy)").format(new java.util.Date(datasEntrada.get(codigo)));
+        model.addRow(new Object[]{i, codigo.toString(), data});
         i++;
     }
 }//GEN-LAST:event_panelInformacoesComponentShown
