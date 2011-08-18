@@ -9,23 +9,15 @@
 package controlesemana;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.supercsv.cellprocessor.ParseBool;
-import org.supercsv.cellprocessor.ParseLong;
-import org.supercsv.cellprocessor.ift.CellProcessor;
-import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanReader;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
@@ -63,7 +55,7 @@ public class Controle {
                 EntradaSaida entradaSaida = new EntradaSaida(codigo, data, entrada);
                 lista.add(entradaSaida);
             }
-            
+
             fr.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Arquivo " + arquivo + " não encontrado.");
